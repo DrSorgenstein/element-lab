@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Compound Studio · Element Lab</title>
+<style>
+*{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#0a1324;color:#eff8ff;font:1rem/1.5 system-ui,sans-serif}main,nav{max-width:66rem;margin:auto;padding:1.1rem}nav{display:flex;align-items:center;gap:1rem;border-bottom:1px solid #32445a}a{color:#96eee0}h1,h2,h3,p{margin:0 0 .7rem}h1{font-size:clamp(2.5rem,7vw,4.7rem);letter-spacing:-.055em;line-height:1.05}h2{font-size:1.55rem}h3{font-size:1.08rem}.intro{margin:1.5rem 0}.panel{background:#132039;border:1px solid #334764;border-radius:1.1rem;padding:clamp(1rem,3vw,2rem);margin:1rem 0}button,select{font:inherit;background:#1e304b;color:#fff;border:1px solid #607895;border-radius:.7rem;padding:.6rem .9rem;min-height:44px;cursor:pointer}button[aria-pressed=true],.primary{background:#9ae7d6;color:#102c30;border-color:#9ae7d6}button:disabled{opacity:.45;cursor:default}:focus-visible{outline:3px solid #ffd378;outline-offset:3px}.row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.well{background:#0c172a;border-radius:.85rem;padding:1rem}.controls{display:grid;grid-template-columns:1fr 44px 2ch 44px;gap:.6rem;align-items:center;margin:.45rem 0}.controls button{padding:0;font-size:1.3rem}.model{min-height:4.5rem;display:flex;align-content:center;align-items:center;flex-wrap:wrap;gap:.4rem}.dotatom{display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;font-weight:800;color:#142135;background:#fff}.O{background:#ffab99}.C{background:#a5b9dc}.N{background:#a9a4ff}.H{background:#d7f5ff}.group{display:inline-flex;gap:2px;padding:.3rem;border:1px solid #526985;border-radius:1rem;margin:.2rem}.group .dotatom{width:1.55rem;height:1.55rem;font-size:.8rem}.muted,small{color:#bdcee2}small{display:block;margin:.5rem 0}.answer{color:#b1f3e0;margin:1rem 0 0}.advanced{border-left:3px solid #d7bdff;padding-left:1rem;margin-top:1rem}.formula{font-size:1.5rem;font-weight:700}.roles{margin:.8rem 0}.phase{display:flex;flex-direction:column;align-items:flex-start}.phase.gas{gap:1rem}.phase.liquid .group:nth-child(odd){margin-left:1rem}.phase.solid{gap:0}.phase.solid .group{margin:0}.phase.liquid{gap:.3rem}.scene{margin:.9rem 0}.scene select{max-width:100%}[hidden]{display:none!important}@media(max-width:620px){.cols{grid-template-columns:1fr}main{padding:.8rem}.panel{padding:1rem}nav{flex-wrap:wrap}.controls{gap:.35rem}}
+</style></head><body><nav><a href="./">Element Lab</a><span>Compound Studio</span></nav><main>
+<div class="intro"><h1>Compound Studio</h1><p>Can the same elements make different substances? Build a formula, then follow the atoms through a change.</p>
+<div class="row roles" aria-label="Learning level"><button id="basic" aria-pressed="true">Elementary</button><button id="deep" aria-pressed="false">High school</button></div></div>
+<section class="panel"><h2>Build a compound</h2><p>Add atoms to your tray. Each circle is one atom. Try the challenge or explore your own combination.</p>
+<div class="cols"><div><h3>Your elements</h3><div id="controls"></div><button id="clear">Clear tray</button></div><div class="well"><h3>Atom tray</h3><div class="model" id="tray"></div><p id="formula" class="formula"></p><div class="row"><button class="primary" id="check">Identify formula</button></div><p class="answer" id="result" role="status"></p></div></div>
+<h3 style="margin-top:1.15rem">Discovery challenge</h3><p id="challenge"></p><div class="row"><button id="hint">Show hint</button><button id="next">Next challenge</button></div><p id="clue" class="answer" role="status"></p><p class="advanced" id="builderNote" hidden>Subscripts count atoms in one molecule. A missing subscript means one. A molecular formula gives composition. Different arrangements of the same atoms can have different properties. This tray models atom counts, not a reaction or a bond structure.</p></section>
+<section class="panel"><h2>What changed?</h2><p>Compare the particles before and after. A border groups atoms into one molecule. Look for a change in who is grouped together.</p><div class="scene"><label for="scene">Choose a change </label><select id="scene"></select></div>
+<div class="cols"><div class="well"><h3>Before</h3><div id="before"></div></div><div class="well"><h3>After</h3><div id="after"></div></div></div><h3 style="margin-top:1rem">Did a new substance form?</h3><div class="row"><button id="physical">No · Physical change</button><button id="chemical">Yes · Chemical change</button></div><p id="verdict" class="answer" role="status"></p><div class="advanced" id="analysis" hidden><h3 id="kind"></h3><p class="formula" id="equation"></p><p id="balance"></p><small>Coefficients count molecules. The same number of each kind of atom appears on both sides.</small></div></section>
+</main><script>
+const get=id=>document.getElementById(id);
+const names={H:'Hydrogen',O:'Oxygen',C:'Carbon',N:'Nitrogen'};
+const counts={H:0,O:0,C:0,N:0};
+const compounds=[
+ ['H₂O','Water',{H:2,O:1},'Build a water molecule. Each oxygen has two hydrogen partners.'],
+ ['H₂O₂','Hydrogen peroxide',{H:2,O:2},'Start with water’s atom count and add one more oxygen. Which formula do you find?'],
+ ['CO₂','Carbon dioxide',{C:1,O:2},'Build the gas plants take in during photosynthesis. Use one carbon for every two oxygens.'],
+ ['NH₃','Ammonia',{N:1,H:3},'Build a molecule with one nitrogen and three hydrogens.'],
+ ['CH₄','Methane',{C:1,H:4},'Build a molecule with one carbon and four hydrogens.']
+];
+let challenge=0,advanced=false,classified=false;
+const sub=n=>n===1?'':String(n).replace(/\d/g,d=>'₀₁₂₃₄₅₆₇₈₉'[d]);
+const atom=s=>'<span class="dotatom '+s+'">'+s+'</span>';
+const group=s=>'<span class="group">'+[...s].map(atom).join('')+'</span>';
+function refreshTray(){
+ const symbols=Object.keys(names).filter(s=>counts[s]);
+ const match=compounds.find(c=>Object.keys(names).every(s=>(c[2][s]||0)===counts[s]));
+ const display=match?match[0]:(counts.C?['C','H','N','O']:['H','N','O']).filter(s=>counts[s]).map(s=>s+sub(counts[s])).join('');
+ get('tray').innerHTML=symbols.map(s=>atom(s).repeat(counts[s])).join('')||'Your tray is empty.';
+ get('formula').textContent=display;get('check').disabled=!symbols.length;
+ for(const s of Object.keys(names)){get('num'+s).textContent=counts[s];get('minus'+s).disabled=counts[s]===0;get('plus'+s).disabled=counts[s]===6}
+ get('result').textContent='';
+ get('check').onclick=()=>{get('result').textContent=match?match[1]+' · '+match[0]+'. '+(match===compounds[challenge]?'Challenge solved!':'You found a different compound.'):(symbols.length===1?'Only one element is present. A compound contains at least two different elements.':'This count has no match in our five example compounds. Use a challenge hint to explore a known formula.')};
+}
+for(const [s,name] of Object.entries(names)){
+ const row=document.createElement('div');row.className='controls';row.innerHTML='<span>'+atom(s)+' '+name+'</span><button id="minus'+s+'" aria-label="Remove one '+name+'">−</button><b id="num'+s+'"></b><button id="plus'+s+'" aria-label="Add one '+name+'">+</button>';get('controls').append(row);
+ get('minus'+s).onclick=()=>{counts[s]--;refreshTray()};get('plus'+s).onclick=()=>{counts[s]++;refreshTray()};
+}
+get('clear').onclick=()=>{Object.keys(counts).forEach(s=>counts[s]=0);refreshTray()};
+function showChallenge(){get('challenge').textContent=compounds[challenge][3];get('clue').textContent='';get('result').textContent=''}
+get('hint').onclick=()=>{get('clue').textContent='Aim for '+Object.entries(compounds[challenge][2]).map(([s,n])=>n+' '+names[s].toLowerCase()).join(' and ')+'.'};
+get('next').onclick=()=>{challenge=(challenge+1)%compounds.length;showChallenge()};
+const scenes=[
+ {name:'An ice cube melts',left:['HOH','HOH','HOH'],right:['HOH','HOH','HOH'],phases:['solid','liquid'],labels:['Ice · molecules in fixed positions','Liquid water · molecules can move past one another'],kind:'Melting · change of state',eq:'H₂O(s) → H₂O(l)',why:'Each water molecule keeps its two hydrogen atoms and one oxygen atom. Only the arrangement and movement change.'},
+ {name:'Water vapor condenses',left:['HOH','HOH','HOH'],right:['HOH','HOH','HOH'],phases:['gas','liquid'],labels:['Water vapor · molecules far apart','Liquid water · molecules close together'],kind:'Condensation · change of state',eq:'H₂O(g) → H₂O(l)',why:'The molecules move closer together to form droplets. They are still water.'},
+ {name:'Two gases form water',left:['HH','HH','OO'],right:['HOH','HOH'],labels:['Hydrogen and oxygen molecules','Water molecules'],kind:'Synthesis · chemical reaction',eq:'2H₂ + O₂ → 2H₂O',why:'Hydrogen and oxygen atoms change partners. Two water molecules form from three gas molecules.'},
+ {name:'Water splits into gases',left:['HOH','HOH'],right:['HH','HH','OO'],labels:['Water molecules','Hydrogen and oxygen molecules'],kind:'Decomposition · chemical reaction',eq:'2H₂O → 2H₂ + O₂',why:'With an input of energy, water can split into two different substances. The atoms form new groupings.'},
+ {name:'Hydrogen peroxide changes',left:['HOOH','HOOH'],right:['HOH','HOH','OO'],labels:['Hydrogen peroxide molecules','Water molecules and an oxygen molecule'],kind:'Decomposition · chemical reaction',eq:'2H₂O₂ → 2H₂O + O₂',why:'The atoms in hydrogen peroxide regroup into water and oxygen. Count the oxygen atoms on both sides.'}
+];
+scenes.forEach((v,i)=>get('scene').add(new Option(v.name,i)));
+function current(){return scenes[Number(get('scene').value)]}
+function renderScene(){
+ const v=current();classified=false;get('verdict').textContent='';get('analysis').hidden=true;
+ ['before','after'].forEach((id,i)=>{const molecules=i?v.right:v.left;get(id).innerHTML='<div class="phase '+(v.phases?.[i]||'')+'">'+molecules.map(group).join('')+'</div><small>'+v.labels[i]+'</small>'});
+ get('kind').textContent=v.kind;get('equation').textContent=v.eq;
+ const atoms=v.left.join('');get('balance').textContent='In each picture: '+Object.keys(names).filter(s=>atoms.includes(s)).map(s=>[...atoms].filter(x=>x===s).length+' '+names[s].toLowerCase()+' atoms').join(' and ')+'.';
+}
+function choose(chemical){const v=current();const correct=chemical===!v.phases;classified=correct;get('verdict').textContent=correct?'Yes, that classification fits. '+v.why:'Look again. '+(v.phases?'Compare the letters inside each border. Did any molecule change?':'Trace one atom. Does it have the same partners afterward?');get('analysis').hidden=!(classified&&advanced)}
+get('physical').onclick=()=>choose(false);get('chemical').onclick=()=>choose(true);get('scene').onchange=renderScene;
+function level(high){advanced=high;get('basic').setAttribute('aria-pressed',!high);get('deep').setAttribute('aria-pressed',high);get('builderNote').hidden=!high;get('analysis').hidden=!(high&&classified)}
+get('basic').onclick=()=>level(false);get('deep').onclick=()=>level(true);showChallenge();refreshTray();renderScene();
+</script></body></html>
