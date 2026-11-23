@@ -2,17 +2,17 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Compound Studio · Element Lab</title>
 <style>
 *{box-sizing:border-box}html{color-scheme:dark}body{margin:0;background:#0a1324;color:#eff8ff;font:1rem/1.5 system-ui,sans-serif}main,nav{max-width:66rem;margin:auto;padding:1.1rem}nav{display:flex;align-items:center;gap:1rem;border-bottom:1px solid #32445a}a{color:#96eee0}h1,h2,h3,p{margin:0 0 .7rem}h1{font-size:clamp(2.5rem,7vw,4.7rem);letter-spacing:-.055em;line-height:1.05}h2{font-size:1.55rem}h3{font-size:1.08rem}.intro{margin:1.5rem 0}.panel{background:#132039;border:1px solid #334764;border-radius:1.1rem;padding:clamp(1rem,3vw,2rem);margin:1rem 0}button,select{font:inherit;background:#1e304b;color:#fff;border:1px solid #607895;border-radius:.7rem;padding:.6rem .9rem;min-height:44px;cursor:pointer}button[aria-pressed=true],.primary{background:#9ae7d6;color:#102c30;border-color:#9ae7d6}button:disabled{opacity:.45;cursor:default}:focus-visible{outline:3px solid #ffd378;outline-offset:3px}.row{display:flex;flex-wrap:wrap;gap:.55rem;align-items:center}.cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.well{background:#0c172a;border-radius:.85rem;padding:1rem}.controls{display:grid;grid-template-columns:1fr 44px 2ch 44px;gap:.6rem;align-items:center;margin:.45rem 0}.controls button{padding:0;font-size:1.3rem}.model{min-height:4.5rem;display:flex;align-content:center;align-items:center;flex-wrap:wrap;gap:.4rem}.dotatom{display:inline-grid;place-items:center;width:2.2rem;height:2.2rem;border-radius:50%;font-weight:800;color:#142135;background:#fff}.O{background:#ffab99}.C{background:#a5b9dc}.N{background:#a9a4ff}.H{background:#d7f5ff}.group{display:inline-flex;gap:2px;padding:.3rem;border:1px solid #526985;border-radius:1rem;margin:.2rem}.group .dotatom{width:1.55rem;height:1.55rem;font-size:.8rem}.muted,small{color:#bdcee2}small{display:block;margin:.5rem 0}.answer{color:#b1f3e0;margin:1rem 0 0}.advanced{border-left:3px solid #d7bdff;padding-left:1rem;margin-top:1rem}.formula{font-size:1.5rem;font-weight:700}.roles{margin:.8rem 0}.phase{display:flex;flex-direction:column;align-items:flex-start}.phase.gas{gap:1rem}.phase.liquid .group:nth-child(odd){margin-left:1rem}.phase.solid{gap:0}.phase.solid .group{margin:0}.phase.liquid{gap:.3rem}.scene{margin:.9rem 0}.scene select{max-width:100%}[hidden]{display:none!important}@media(max-width:620px){.cols{grid-template-columns:1fr}main{padding:.8rem}.panel{padding:1rem}nav{flex-wrap:wrap}.controls{gap:.35rem}}
-#controls{max-height:19rem;overflow:auto;padding-right:.5rem}.catalog{background:#0c172a;padding:1rem;border-radius:.8rem;display:flex;align-items:end;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.catalog label{display:grid;gap:.3rem}.catalog select,.catalog input{max-width:100%;min-width:0}.catalog input{font:inherit;padding:.7rem;border:1px solid #607895;border-radius:.7rem}.catalog small{flex-basis:100%}.catalog label{max-width:100%}.controls span{overflow-wrap:anywhere}</style></head><body><nav><a href="./">Element Lab</a><span>Compound Studio</span></nav><main>
+#controls{max-height:19rem;overflow:auto;padding-right:.5rem}.catalog{background:#0c172a;padding:1rem;border-radius:.8rem;display:flex;align-items:end;flex-wrap:wrap;gap:.7rem;margin:1rem 0}.catalog label{display:grid;gap:.3rem}.catalog select,.catalog input{max-width:100%;min-width:0}.catalog input{font:inherit;padding:.7rem;border:1px solid #607895;border-radius:.7rem}.catalog small{flex-basis:100%}.catalog label{max-width:100%}.controls span{overflow-wrap:anywhere}#guide{margin:1rem 0;border:1px solid #688697;border-radius:.75rem;padding:1rem;background:#0c172a}summary{cursor:pointer;color:#9ae7d6;font-weight:bold}#visualName{margin-top:1rem}.countRow{padding:.65rem 0;border-bottom:1px solid #38475c}.marks,.bundle{display:flex;gap:2px}.marks{flex-wrap:wrap;gap:.45rem;margin-top:.25rem}.bundle i{width:.78rem;height:.78rem;border-radius:3px;background:#99e6d3}.countRow:nth-child(3n+2) i{background:#ffb79f}.countRow:nth-child(3n) i{background:#c1b8ff}</style></head><body><nav><a href="./">Element Lab</a><span>Compound Studio</span></nav><main>
 <div class="intro"><h1>Compound Studio</h1><p>Can the same elements make different substances? Build a formula, then follow the atoms through a change.</p>
 <div class="row roles" aria-label="Learning level"><button id="basic" aria-pressed="true">Elementary</button><button id="deep" aria-pressed="false">High school</button></div></div>
-<section class="panel"><h2>Build a compound</h2><p>Explore 60 compounds. Choose a formula to model, or add atoms to your tray. Each circle is one atom. Try the challenge or explore your own combination.</p>
-<div class="catalog"><label>Find a compound <input type="search" id="find" placeholder="Name or formula"></label><label>Compound <select id="catalog"></select></label><button id="load">Show atom model</button><small id="found" role="status"></small></div><div class="cols"><div><h3>Your elements</h3><div id="controls"></div><button id="clear">Clear tray</button></div><div class="well"><h3>Atom tray</h3><div class="model" id="tray"></div><p id="formula" class="formula"></p><div class="row"><button class="primary" id="check">Identify formula</button></div><p class="answer" id="result" role="status"></p></div></div>
-<h3 style="margin-top:1.15rem">Discovery challenge</h3><p id="challenge"></p><div class="row"><button id="hint">Show hint</button><button id="next">Next challenge</button></div><p id="clue" class="answer" role="status"></p><p class="advanced" id="builderNote" hidden>A molecular formula counts atoms in one molecule. In ionic solids such as table salt, a formula gives the ratio of ions in the crystal. A number after parentheses multiplies every atom inside. A missing subscript means one. A molecular formula gives composition. Different arrangements of the same atoms can have different properties. This tray models atom counts, not a reaction or a bond structure.</p></section>
+<section class="panel"><h2>Build a compound</h2><p>Explore 210 compounds. Choose a formula to model, or add atoms to your tray. Each circle is one atom. Try the challenge or explore your own combination.</p>
+<div class="catalog"><label>Collection <select id="collection"><option value="0">All compounds</option><option value="110">Newest 100 challenges</option></select></label><label>Find a compound <input type="search" id="find" placeholder="Name or formula"></label><label>Compound <select id="catalog"></select></label><button id="load">Show atom model</button><small id="found" role="status"></small></div><div class="cols"><div><h3>Your elements</h3><div id="controls"></div><button id="clear">Clear tray</button></div><div class="well"><h3>Atom tray</h3><div class="model" id="tray"></div><p id="formula" class="formula"></p><div class="row"><button class="primary" id="check">Identify formula</button></div><p class="answer" id="result" role="status"></p></div></div>
+<h3 style="margin-top:1.15rem">Discovery challenge</h3><p id="challenge"></p><div class="row"><button id="hint">Show hint</button><button id="next">Next challenge</button></div><details id="guide"><summary>Visual guide · count the atoms</summary><h3 id="visualName"></h3><p>Each square stands for one atom. Spaces divide long rows into groups of five. The rows show the counts in one written formula.</p><div id="bars"></div><p id="sum"></p></details><p id="clue" class="answer" role="status"></p><p class="advanced" id="builderNote" hidden>A molecular formula counts atoms in one molecule. In ionic solids such as table salt, a formula gives the ratio of ions in the crystal. A number after parentheses multiplies every atom inside. A missing subscript means one. A molecular formula gives composition. Different arrangements of the same atoms can have different properties. This tray models atom counts, not a reaction or a bond structure.</p></section>
 <section class="panel"><h2>What changed?</h2><p>Compare the particles before and after. A border groups atoms into one molecule. Look for a change in who is grouped together.</p><div class="scene"><label for="scene">Choose a change </label><select id="scene"></select></div>
 <div class="cols"><div class="well"><h3>Before</h3><div id="before"></div></div><div class="well"><h3>After</h3><div id="after"></div></div></div><h3 style="margin-top:1rem">Did a new substance form?</h3><div class="row"><button id="physical">No · Physical change</button><button id="chemical">Yes · Chemical change</button></div><p id="verdict" class="answer" role="status"></p><div class="advanced" id="analysis" hidden><h3 id="kind"></h3><p class="formula" id="equation"></p><p id="balance"></p><small>Coefficients count molecules. The same number of each kind of atom appears on both sides.</small></div></section>
 </main><script>
 const get=id=>document.getElementById(id);
-const names={"H": "Hydrogen", "O": "Oxygen", "C": "Carbon", "N": "Nitrogen", "Na": "Sodium", "Cl": "Chlorine", "K": "Potassium", "Ca": "Calcium", "Mg": "Magnesium", "Li": "Lithium", "F": "Fluorine", "Br": "Bromine", "Ag": "Silver", "I": "Iodine", "Zn": "Zinc", "Fe": "Iron", "Cu": "Copper", "Al": "Aluminium", "Ti": "Titanium", "Si": "Silicon", "Sn": "Tin", "Mn": "Manganese", "S": "Sulfur", "Ba": "Barium", "P": "Phosphorus"};
+const names={"H": "Hydrogen", "O": "Oxygen", "C": "Carbon", "N": "Nitrogen", "Na": "Sodium", "Cl": "Chlorine", "K": "Potassium", "Ca": "Calcium", "Mg": "Magnesium", "Li": "Lithium", "F": "Fluorine", "Br": "Bromine", "Ag": "Silver", "I": "Iodine", "Zn": "Zinc", "Fe": "Iron", "Cu": "Copper", "Al": "Aluminium", "Ti": "Titanium", "Si": "Silicon", "Sn": "Tin", "Mn": "Manganese", "S": "Sulfur", "Ba": "Barium", "P": "Phosphorus","Sr":"Strontium","Zr":"Zirconium","W":"Tungsten","Mo":"Molybdenum"};
 const counts=Object.fromEntries(Object.keys(names).map(symbol=>[symbol,0]));
 const compounds=[
  ['H₂O','Water',{H:2,O:1},'Build a water molecule. Each oxygen has two hydrogen partners.'],
@@ -74,7 +74,157 @@ const compounds=[
 ["C₆H₈O₇", "Citric acid", {"C": 6, "H": 8, "O": 7}, "Build Citric acid using the formula C₆H₈O₇."],
 ["C₂H₄O₂", "Acetic acid", {"C": 2, "H": 4, "O": 2}, "Build Acetic acid using the formula C₂H₄O₂."],
 ["C₃H₈O₃", "Glycerol", {"C": 3, "H": 8, "O": 3}, "Build Glycerol using the formula C₃H₈O₃."],
-["CH₄N₂O", "Urea", {"C": 1, "H": 4, "N": 2, "O": 1}, "Build Urea using the formula CH₄N₂O."]
+["CH₄N₂O", "Urea", {"C": 1, "H": 4, "N": 2, "O": 1}, "Build Urea using the formula CH₄N₂O."],
+["C₆H₈O₆", "Ascorbic acid (vitamin C)", {"C": 6, "H": 8, "O": 6}, "Build Ascorbic acid (vitamin C) (C₆H₈O₆). Predict the total atom count, then check it with the visual guide."],
+["C₃H₆O₃", "Lactic acid", {"C": 3, "H": 6, "O": 3}, "Build Lactic acid (C₃H₆O₃). Predict the total atom count, then check it with the visual guide."],
+["C₄H₆O₆", "Tartaric acid", {"C": 4, "H": 6, "O": 6}, "Build Tartaric acid (C₄H₆O₆). Predict the total atom count, then check it with the visual guide."],
+["C₄H₆O₅", "Malic acid", {"C": 4, "H": 6, "O": 5}, "Build Malic acid (C₄H₆O₅). Predict the total atom count, then check it with the visual guide."],
+["C₂H₂O₄", "Oxalic acid", {"C": 2, "H": 2, "O": 4}, "Build Oxalic acid (C₂H₂O₄). Predict the total atom count, then check it with the visual guide."],
+["C₄H₆O₄", "Succinic acid", {"C": 4, "H": 6, "O": 4}, "Build Succinic acid (C₄H₆O₄). Predict the total atom count, then check it with the visual guide."],
+["CH₂O₂", "Formic acid", {"C": 1, "H": 2, "O": 2}, "Build Formic acid (CH₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₃H₆O₂", "Propionic acid", {"C": 3, "H": 6, "O": 2}, "Build Propionic acid (C₃H₆O₂). Predict the total atom count, then check it with the visual guide."],
+["C₄H₈O₂", "Butyric acid", {"C": 4, "H": 8, "O": 2}, "Build Butyric acid (C₄H₈O₂). Predict the total atom count, then check it with the visual guide."],
+["C₆H₅COOH", "Benzoic acid", {"C": 7, "H": 6, "O": 2}, "Build Benzoic acid (C₆H₅COOH). Predict the total atom count, then check it with the visual guide."],
+["C₃H₇NO₂", "Alanine", {"C": 3, "H": 7, "N": 1, "O": 2}, "Build Alanine (C₃H₇NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₂H₅NO₂", "Glycine", {"C": 2, "H": 5, "N": 1, "O": 2}, "Build Glycine (C₂H₅NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₃H₇NO₃", "Serine", {"C": 3, "H": 7, "N": 1, "O": 3}, "Build Serine (C₃H₇NO₃). Predict the total atom count, then check it with the visual guide."],
+["C₃H₇NO₂S", "Cysteine", {"C": 3, "H": 7, "N": 1, "O": 2, "S": 1}, "Build Cysteine (C₃H₇NO₂S). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₁NO₂", "Valine", {"C": 5, "H": 11, "N": 1, "O": 2}, "Build Valine (C₅H₁₁NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₅H₉NO₄", "Glutamic acid", {"C": 5, "H": 9, "N": 1, "O": 4}, "Build Glutamic acid (C₅H₉NO₄). Predict the total atom count, then check it with the visual guide."],
+["C₄H₇NO₄", "Aspartic acid", {"C": 4, "H": 7, "N": 1, "O": 4}, "Build Aspartic acid (C₄H₇NO₄). Predict the total atom count, then check it with the visual guide."],
+["C₅H₉NO₂", "Proline", {"C": 5, "H": 9, "N": 1, "O": 2}, "Build Proline (C₅H₉NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₉H₁₁NO₂", "Phenylalanine", {"C": 9, "H": 11, "N": 1, "O": 2}, "Build Phenylalanine (C₉H₁₁NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₉H₁₁NO₃", "Tyrosine", {"C": 9, "H": 11, "N": 1, "O": 3}, "Build Tyrosine (C₉H₁₁NO₃). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₁NO₂S", "Methionine", {"C": 5, "H": 11, "N": 1, "O": 2, "S": 1}, "Build Methionine (C₅H₁₁NO₂S). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₄N₂O₂", "Lysine", {"C": 6, "H": 14, "N": 2, "O": 2}, "Build Lysine (C₆H₁₄N₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₁H₁₂N₂O₂", "Tryptophan", {"C": 11, "H": 12, "N": 2, "O": 2}, "Build Tryptophan (C₁₁H₁₂N₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₆H₉N₃O₂", "Histidine", {"C": 6, "H": 9, "N": 3, "O": 2}, "Build Histidine (C₆H₉N₃O₂). Predict the total atom count, then check it with the visual guide."],
+["C₂H₆O", "Ethanol", {"C": 2, "H": 6, "O": 1}, "Build Ethanol (C₂H₆O). Predict the total atom count, then check it with the visual guide."],
+["C₃H₆O", "Acetone", {"C": 3, "H": 6, "O": 1}, "Build Acetone (C₃H₆O). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₄O₆", "Sorbitol", {"C": 6, "H": 14, "O": 6}, "Build Sorbitol (C₆H₁₄O₆). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₂O₅", "Xylitol", {"C": 5, "H": 12, "O": 5}, "Build Xylitol (C₅H₁₂O₅). Predict the total atom count, then check it with the visual guide."],
+["C₄H₁₀O₄", "Erythritol", {"C": 4, "H": 10, "O": 4}, "Build Erythritol (C₄H₁₀O₄). Predict the total atom count, then check it with the visual guide."],
+["C₈H₁₀N₄O₂", "Caffeine", {"C": 8, "H": 10, "N": 4, "O": 2}, "Build Caffeine (C₈H₁₀N₄O₂). Predict the total atom count, then check it with the visual guide."],
+["C₇H₈N₄O₂", "Theobromine", {"C": 7, "H": 8, "N": 4, "O": 2}, "Build Theobromine (C₇H₈N₄O₂). Predict the total atom count, then check it with the visual guide."],
+["C₈H₈O₃", "Vanillin", {"C": 8, "H": 8, "O": 3}, "Build Vanillin (C₈H₈O₃). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₆", "Limonene", {"C": 10, "H": 16}, "Build Limonene (C₁₀H₁₆). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₂₀O", "Menthol", {"C": 10, "H": 20, "O": 1}, "Build Menthol (C₁₀H₂₀O). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₀O₅", "Ribose", {"C": 5, "H": 10, "O": 5}, "Build Ribose (C₅H₁₀O₅). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₀O₄", "Deoxyribose", {"C": 5, "H": 10, "O": 4}, "Build Deoxyribose (C₅H₁₀O₄). Predict the total atom count, then check it with the visual guide."],
+["Na₂SiO₃", "Sodium metasilicate", {"Na": 2, "Si": 1, "O": 3}, "Build Sodium metasilicate (Na₂SiO₃). Predict the total atom count, then check it with the visual guide."],
+["CaSiO₃", "Calcium silicate (wollastonite)", {"Ca": 1, "Si": 1, "O": 3}, "Build Calcium silicate (wollastonite) (CaSiO₃). Predict the total atom count, then check it with the visual guide."],
+["Mg₂SiO₄", "Magnesium silicate (forsterite)", {"Mg": 2, "Si": 1, "O": 4}, "Build Magnesium silicate (forsterite) (Mg₂SiO₄). Predict the total atom count, then check it with the visual guide."],
+["MgSiO₃", "Magnesium silicate (enstatite)", {"Mg": 1, "Si": 1, "O": 3}, "Build Magnesium silicate (enstatite) (MgSiO₃). Predict the total atom count, then check it with the visual guide."],
+["CaMg(CO₃)₂", "Calcium magnesium carbonate (dolomite)", {"Ca": 1, "Mg": 1, "C": 2, "O": 6}, "Build Calcium magnesium carbonate (dolomite) (CaMg(CO₃)₂). Predict the total atom count, then check it with the visual guide."],
+["SrCO₃", "Strontium carbonate", {"Sr": 1, "C": 1, "O": 3}, "Build Strontium carbonate (SrCO₃). Predict the total atom count, then check it with the visual guide."],
+["BaCO₃", "Barium carbonate", {"Ba": 1, "C": 1, "O": 3}, "Build Barium carbonate (BaCO₃). Predict the total atom count, then check it with the visual guide."],
+["FeCO₃", "Iron(II) carbonate", {"Fe": 1, "C": 1, "O": 3}, "Build Iron(II) carbonate (FeCO₃). Predict the total atom count, then check it with the visual guide."],
+["ZnCO₃", "Zinc carbonate", {"Zn": 1, "C": 1, "O": 3}, "Build Zinc carbonate (ZnCO₃). Predict the total atom count, then check it with the visual guide."],
+["SrSO₄", "Strontium sulfate", {"Sr": 1, "S": 1, "O": 4}, "Build Strontium sulfate (SrSO₄). Predict the total atom count, then check it with the visual guide."],
+["CaWO₄", "Calcium tungstate", {"Ca": 1, "W": 1, "O": 4}, "Build Calcium tungstate (CaWO₄). Predict the total atom count, then check it with the visual guide."],
+["ZrSiO₄", "Zirconium silicate (zircon)", {"Zr": 1, "Si": 1, "O": 4}, "Build Zirconium silicate (zircon) (ZrSiO₄). Predict the total atom count, then check it with the visual guide."],
+["FeTiO₃", "Iron titanium oxide (ilmenite)", {"Fe": 1, "Ti": 1, "O": 3}, "Build Iron titanium oxide (ilmenite) (FeTiO₃). Predict the total atom count, then check it with the visual guide."],
+["MgAl₂O₄", "Magnesium aluminate (spinel)", {"Mg": 1, "Al": 2, "O": 4}, "Build Magnesium aluminate (spinel) (MgAl₂O₄). Predict the total atom count, then check it with the visual guide."],
+["CaSO₄·2H₂O", "Gypsum", {"Ca": 1, "S": 1, "O": 6, "H": 4}, "Build Gypsum (CaSO₄·2H₂O). Predict the total atom count, then check it with the visual guide."],
+["MgSO₄·7H₂O", "Epsomite (Epsom salt)", {"Mg": 1, "S": 1, "O": 11, "H": 14}, "Build Epsomite (Epsom salt) (MgSO₄·7H₂O). Predict the total atom count, then check it with the visual guide."],
+["CuSO₄·5H₂O", "Copper(II) sulfate pentahydrate", {"Cu": 1, "S": 1, "O": 9, "H": 10}, "Build Copper(II) sulfate pentahydrate (CuSO₄·5H₂O). Predict the total atom count, then check it with the visual guide."],
+["Na₂CO₃·10H₂O", "Sodium carbonate decahydrate (washing soda)", {"Na": 2, "C": 1, "O": 13, "H": 20}, "Build Sodium carbonate decahydrate (washing soda) (Na₂CO₃·10H₂O). Predict the total atom count, then check it with the visual guide."],
+["Na₂SO₄·10H₂O", "Mirabilite", {"Na": 2, "S": 1, "O": 14, "H": 20}, "Build Mirabilite (Na₂SO₄·10H₂O). Predict the total atom count, then check it with the visual guide."],
+["CaCl₂·2H₂O", "Calcium chloride dihydrate", {"Ca": 1, "Cl": 2, "H": 4, "O": 2}, "Build Calcium chloride dihydrate (CaCl₂·2H₂O). Predict the total atom count, then check it with the visual guide."],
+["KAlSi₃O₈", "Potassium feldspar (orthoclase)", {"K": 1, "Al": 1, "Si": 3, "O": 8}, "Build Potassium feldspar (orthoclase) (KAlSi₃O₈). Predict the total atom count, then check it with the visual guide."],
+["NaAlSi₃O₈", "Albite", {"Na": 1, "Al": 1, "Si": 3, "O": 8}, "Build Albite (NaAlSi₃O₈). Predict the total atom count, then check it with the visual guide."],
+["CaAl₂Si₂O₈", "Anorthite", {"Ca": 1, "Al": 2, "Si": 2, "O": 8}, "Build Anorthite (CaAl₂Si₂O₈). Predict the total atom count, then check it with the visual guide."],
+["CaMgSi₂O₆", "Diopside", {"Ca": 1, "Mg": 1, "Si": 2, "O": 6}, "Build Diopside (CaMgSi₂O₆). Predict the total atom count, then check it with the visual guide."],
+["CaFeSi₂O₆", "Hedenbergite", {"Ca": 1, "Fe": 1, "Si": 2, "O": 6}, "Build Hedenbergite (CaFeSi₂O₆). Predict the total atom count, then check it with the visual guide."],
+["Fe₂SiO₄", "Fayalite", {"Fe": 2, "Si": 1, "O": 4}, "Build Fayalite (Fe₂SiO₄). Predict the total atom count, then check it with the visual guide."],
+["Mn₂SiO₄", "Tephroite", {"Mn": 2, "Si": 1, "O": 4}, "Build Tephroite (Mn₂SiO₄). Predict the total atom count, then check it with the visual guide."],
+["Zn₂SiO₄", "Willemite", {"Zn": 2, "Si": 1, "O": 4}, "Build Willemite (Zn₂SiO₄). Predict the total atom count, then check it with the visual guide."],
+["Al₂SiO₅", "Kyanite", {"Al": 2, "Si": 1, "O": 5}, "Build Kyanite (Al₂SiO₅). Predict the total atom count, then check it with the visual guide."],
+["Al₂Si₂O₅(OH)₄", "Kaolinite", {"Al": 2, "Si": 2, "O": 9, "H": 4}, "Build Kaolinite (Al₂Si₂O₅(OH)₄). Predict the total atom count, then check it with the visual guide."],
+["Mg₃Si₄O₁₀(OH)₂", "Talc", {"Mg": 3, "Si": 4, "O": 12, "H": 2}, "Build Talc (Mg₃Si₄O₁₀(OH)₂). Predict the total atom count, then check it with the visual guide."],
+["Ca₅(PO₄)₃F", "Fluorapatite", {"Ca": 5, "P": 3, "O": 12, "F": 1}, "Build Fluorapatite (Ca₅(PO₄)₃F). Predict the total atom count, then check it with the visual guide."],
+["Ca₅(PO₄)₃OH", "Hydroxyapatite", {"Ca": 5, "P": 3, "O": 13, "H": 1}, "Build Hydroxyapatite (Ca₅(PO₄)₃OH). Predict the total atom count, then check it with the visual guide."],
+["Ca₅(PO₄)₃Cl", "Chlorapatite", {"Ca": 5, "P": 3, "O": 12, "Cl": 1}, "Build Chlorapatite (Ca₅(PO₄)₃Cl). Predict the total atom count, then check it with the visual guide."],
+["FeS₂", "Pyrite", {"Fe": 1, "S": 2}, "Build Pyrite (FeS₂). Predict the total atom count, then check it with the visual guide."],
+["ZnS", "Sphalerite", {"Zn": 1, "S": 1}, "Build Sphalerite (ZnS). Predict the total atom count, then check it with the visual guide."],
+["CuFeS₂", "Chalcopyrite", {"Cu": 1, "Fe": 1, "S": 2}, "Build Chalcopyrite (CuFeS₂). Predict the total atom count, then check it with the visual guide."],
+["MoS₂", "Molybdenite", {"Mo": 1, "S": 2}, "Build Molybdenite (MoS₂). Predict the total atom count, then check it with the visual guide."],
+["Cu₂S", "Chalcocite", {"Cu": 2, "S": 1}, "Build Chalcocite (Cu₂S). Predict the total atom count, then check it with the visual guide."],
+["Ag₂S", "Acanthite", {"Ag": 2, "S": 1}, "Build Acanthite (Ag₂S). Predict the total atom count, then check it with the visual guide."],
+["Cu₂CO₃(OH)₂", "Malachite", {"Cu": 2, "C": 1, "O": 5, "H": 2}, "Build Malachite (Cu₂CO₃(OH)₂). Predict the total atom count, then check it with the visual guide."],
+["Cu₃(CO₃)₂(OH)₂", "Azurite", {"Cu": 3, "C": 2, "O": 8, "H": 2}, "Build Azurite (Cu₃(CO₃)₂(OH)₂). Predict the total atom count, then check it with the visual guide."],
+["SrF₂", "Strontium fluoride", {"Sr": 1, "F": 2}, "Build Strontium fluoride (SrF₂). Predict the total atom count, then check it with the visual guide."],
+["NaAlSi₂O₆", "Jadeite", {"Na": 1, "Al": 1, "Si": 2, "O": 6}, "Build Jadeite (NaAlSi₂O₆). Predict the total atom count, then check it with the visual guide."],
+["C₂H₆", "Ethane", {"C": 2, "H": 6}, "Build Ethane (C₂H₆). Predict the total atom count, then check it with the visual guide."],
+["C₃H₈", "Propane", {"C": 3, "H": 8}, "Build Propane (C₃H₈). Predict the total atom count, then check it with the visual guide."],
+["C₄H₁₀", "Butane", {"C": 4, "H": 10}, "Build Butane (C₄H₁₀). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₂", "Pentane", {"C": 5, "H": 12}, "Build Pentane (C₅H₁₂). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₄", "Hexane", {"C": 6, "H": 14}, "Build Hexane (C₆H₁₄). Predict the total atom count, then check it with the visual guide."],
+["C₇H₁₆", "Heptane", {"C": 7, "H": 16}, "Build Heptane (C₇H₁₆). Predict the total atom count, then check it with the visual guide."],
+["C₈H₁₈", "Octane", {"C": 8, "H": 18}, "Build Octane (C₈H₁₈). Predict the total atom count, then check it with the visual guide."],
+["C₉H₂₀", "Nonane", {"C": 9, "H": 20}, "Build Nonane (C₉H₂₀). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₂₂", "Decane", {"C": 10, "H": 22}, "Build Decane (C₁₀H₂₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₂H₂₆", "Dodecane", {"C": 12, "H": 26}, "Build Dodecane (C₁₂H₂₆). Predict the total atom count, then check it with the visual guide."],
+["CH₄O", "Methanol", {"C": 1, "H": 4, "O": 1}, "Build Methanol (CH₄O). Predict the total atom count, then check it with the visual guide."],
+["C₃H₈O", "Propan-1-ol", {"C": 3, "H": 8, "O": 1}, "Build Propan-1-ol (C₃H₈O). Predict the total atom count, then check it with the visual guide."],
+["C₄H₁₀O", "Butan-1-ol", {"C": 4, "H": 10, "O": 1}, "Build Butan-1-ol (C₄H₁₀O). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₂O", "Pentan-1-ol", {"C": 5, "H": 12, "O": 1}, "Build Pentan-1-ol (C₅H₁₂O). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₄O", "Hexan-1-ol", {"C": 6, "H": 14, "O": 1}, "Build Hexan-1-ol (C₆H₁₄O). Predict the total atom count, then check it with the visual guide."],
+["C₇H₁₆O", "Heptan-1-ol", {"C": 7, "H": 16, "O": 1}, "Build Heptan-1-ol (C₇H₁₆O). Predict the total atom count, then check it with the visual guide."],
+["C₈H₁₈O", "Octan-1-ol", {"C": 8, "H": 18, "O": 1}, "Build Octan-1-ol (C₈H₁₈O). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₂₂O", "Decan-1-ol", {"C": 10, "H": 22, "O": 1}, "Build Decan-1-ol (C₁₀H₂₂O). Predict the total atom count, then check it with the visual guide."],
+["C₁₂H₂₆O", "Dodecan-1-ol", {"C": 12, "H": 26, "O": 1}, "Build Dodecan-1-ol (C₁₂H₂₆O). Predict the total atom count, then check it with the visual guide."],
+["C₁₆H₃₄O", "Cetyl alcohol", {"C": 16, "H": 34, "O": 1}, "Build Cetyl alcohol (C₁₆H₃₄O). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₂O₂", "Hexanoic acid", {"C": 6, "H": 12, "O": 2}, "Build Hexanoic acid (C₆H₁₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₈H₁₆O₂", "Octanoic acid", {"C": 8, "H": 16, "O": 2}, "Build Octanoic acid (C₈H₁₆O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₂₀O₂", "Decanoic acid", {"C": 10, "H": 20, "O": 2}, "Build Decanoic acid (C₁₀H₂₀O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₂H₂₄O₂", "Lauric acid", {"C": 12, "H": 24, "O": 2}, "Build Lauric acid (C₁₂H₂₄O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₄H₂₈O₂", "Myristic acid", {"C": 14, "H": 28, "O": 2}, "Build Myristic acid (C₁₄H₂₈O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₆H₃₂O₂", "Palmitic acid", {"C": 16, "H": 32, "O": 2}, "Build Palmitic acid (C₁₆H₃₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₈H₃₆O₂", "Stearic acid", {"C": 18, "H": 36, "O": 2}, "Build Stearic acid (C₁₈H₃₆O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₈H₃₄O₂", "Oleic acid", {"C": 18, "H": 34, "O": 2}, "Build Oleic acid (C₁₈H₃₄O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₈H₃₂O₂", "Linoleic acid", {"C": 18, "H": 32, "O": 2}, "Build Linoleic acid (C₁₈H₃₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₈H₃₀O₂", "Alpha-linolenic acid", {"C": 18, "H": 30, "O": 2}, "Build Alpha-linolenic acid (C₁₈H₃₀O₂). Predict the total atom count, then check it with the visual guide."],
+["C₄H₈N₂O₃", "Asparagine", {"C": 4, "H": 8, "N": 2, "O": 3}, "Build Asparagine (C₄H₈N₂O₃). Predict the total atom count, then check it with the visual guide."],
+["C₅H₁₀N₂O₃", "Glutamine", {"C": 5, "H": 10, "N": 2, "O": 3}, "Build Glutamine (C₅H₁₀N₂O₃). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₄N₄O₂", "Arginine", {"C": 6, "H": 14, "N": 4, "O": 2}, "Build Arginine (C₆H₁₄N₄O₂). Predict the total atom count, then check it with the visual guide."],
+["C₄H₉NO₃", "Threonine", {"C": 4, "H": 9, "N": 1, "O": 3}, "Build Threonine (C₄H₉NO₃). Predict the total atom count, then check it with the visual guide."],
+["C₆H₁₃NO₂", "Leucine", {"C": 6, "H": 13, "N": 1, "O": 2}, "Build Leucine (C₆H₁₃NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₅H₅N₅", "Adenine", {"C": 5, "H": 5, "N": 5}, "Build Adenine (C₅H₅N₅). Predict the total atom count, then check it with the visual guide."],
+["C₅H₅N₅O", "Guanine", {"C": 5, "H": 5, "N": 5, "O": 1}, "Build Guanine (C₅H₅N₅O). Predict the total atom count, then check it with the visual guide."],
+["C₄H₅N₃O", "Cytosine", {"C": 4, "H": 5, "N": 3, "O": 1}, "Build Cytosine (C₄H₅N₃O). Predict the total atom count, then check it with the visual guide."],
+["C₅H₆N₂O₂", "Thymine", {"C": 5, "H": 6, "N": 2, "O": 2}, "Build Thymine (C₅H₆N₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₄H₄N₂O₂", "Uracil", {"C": 4, "H": 4, "N": 2, "O": 2}, "Build Uracil (C₄H₄N₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₃N₅O₄", "Adenosine", {"C": 10, "H": 13, "N": 5, "O": 4}, "Build Adenosine (C₁₀H₁₃N₅O₄). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₃N₅O₅", "Guanosine", {"C": 10, "H": 13, "N": 5, "O": 5}, "Build Guanosine (C₁₀H₁₃N₅O₅). Predict the total atom count, then check it with the visual guide."],
+["C₉H₁₃N₃O₅", "Cytidine", {"C": 9, "H": 13, "N": 3, "O": 5}, "Build Cytidine (C₉H₁₃N₃O₅). Predict the total atom count, then check it with the visual guide."],
+["C₉H₁₂N₂O₆", "Uridine", {"C": 9, "H": 12, "N": 2, "O": 6}, "Build Uridine (C₉H₁₂N₂O₆). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₄N₂O₅", "Thymidine", {"C": 10, "H": 14, "N": 2, "O": 5}, "Build Thymidine (C₁₀H₁₄N₂O₅). Predict the total atom count, then check it with the visual guide."],
+["C₆H₆O", "Phenol", {"C": 6, "H": 6, "O": 1}, "Build Phenol (C₆H₆O). Predict the total atom count, then check it with the visual guide."],
+["C₇H₈O", "Benzyl alcohol", {"C": 7, "H": 8, "O": 1}, "Build Benzyl alcohol (C₇H₈O). Predict the total atom count, then check it with the visual guide."],
+["C₇H₆O", "Benzaldehyde", {"C": 7, "H": 6, "O": 1}, "Build Benzaldehyde (C₇H₆O). Predict the total atom count, then check it with the visual guide."],
+["C₉H₈O", "Cinnamaldehyde", {"C": 9, "H": 8, "O": 1}, "Build Cinnamaldehyde (C₉H₈O). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₂O₂", "Eugenol", {"C": 10, "H": 12, "O": 2}, "Build Eugenol (C₁₀H₁₂O₂). Predict the total atom count, then check it with the visual guide."],
+["C₈H₈O₂", "Methyl benzoate", {"C": 8, "H": 8, "O": 2}, "Build Methyl benzoate (C₈H₈O₂). Predict the total atom count, then check it with the visual guide."],
+["C₈H₈O₄", "Vanillic acid", {"C": 8, "H": 8, "O": 4}, "Build Vanillic acid (C₈H₈O₄). Predict the total atom count, then check it with the visual guide."],
+["C₇H₆O₅", "Gallic acid", {"C": 7, "H": 6, "O": 5}, "Build Gallic acid (C₇H₆O₅). Predict the total atom count, then check it with the visual guide."],
+["C₉H₈O₄", "Caffeic acid", {"C": 9, "H": 8, "O": 4}, "Build Caffeic acid (C₉H₈O₄). Predict the total atom count, then check it with the visual guide."],
+["C₁₀H₁₀O₄", "Ferulic acid", {"C": 10, "H": 10, "O": 4}, "Build Ferulic acid (C₁₀H₁₀O₄). Predict the total atom count, then check it with the visual guide."],
+["C₁₅H₁₀O₇", "Quercetin", {"C": 15, "H": 10, "O": 7}, "Build Quercetin (C₁₅H₁₀O₇). Predict the total atom count, then check it with the visual guide."],
+["C₁₅H₁₀O₆", "Kaempferol", {"C": 15, "H": 10, "O": 6}, "Build Kaempferol (C₁₅H₁₀O₆). Predict the total atom count, then check it with the visual guide."],
+["C₁₅H₁₂O₅", "Naringenin", {"C": 15, "H": 12, "O": 5}, "Build Naringenin (C₁₅H₁₂O₅). Predict the total atom count, then check it with the visual guide."],
+["C₁₅H₁₄O₆", "Catechin", {"C": 15, "H": 14, "O": 6}, "Build Catechin (C₁₅H₁₄O₆). Predict the total atom count, then check it with the visual guide."],
+["C₂₁H₂₀O₆", "Curcumin", {"C": 21, "H": 20, "O": 6}, "Build Curcumin (C₂₁H₂₀O₆). Predict the total atom count, then check it with the visual guide."],
+["C₄₀H₅₆", "Beta-carotene", {"C": 40, "H": 56}, "Build Beta-carotene (C₄₀H₅₆). Predict the total atom count, then check it with the visual guide."],
+["C₄₀H₅₆O₂", "Lutein", {"C": 40, "H": 56, "O": 2}, "Build Lutein (C₄₀H₅₆O₂). Predict the total atom count, then check it with the visual guide."],
+["C₂₀H₃₀O", "Retinol", {"C": 20, "H": 30, "O": 1}, "Build Retinol (C₂₀H₃₀O). Predict the total atom count, then check it with the visual guide."],
+["C₂₇H₄₄O", "Cholecalciferol (vitamin D3)", {"C": 27, "H": 44, "O": 1}, "Build Cholecalciferol (vitamin D3) (C₂₇H₄₄O). Predict the total atom count, then check it with the visual guide."],
+["C₂₈H₄₄O", "Ergocalciferol (vitamin D2)", {"C": 28, "H": 44, "O": 1}, "Build Ergocalciferol (vitamin D2) (C₂₈H₄₄O). Predict the total atom count, then check it with the visual guide."],
+["C₂₉H₅₀O₂", "Alpha-tocopherol", {"C": 29, "H": 50, "O": 2}, "Build Alpha-tocopherol (C₂₉H₅₀O₂). Predict the total atom count, then check it with the visual guide."],
+["C₁₉H₁₉N₇O₆", "Folic acid", {"C": 19, "H": 19, "N": 7, "O": 6}, "Build Folic acid (C₁₉H₁₉N₇O₆). Predict the total atom count, then check it with the visual guide."],
+["C₁₇H₂₀N₄O₆", "Riboflavin", {"C": 17, "H": 20, "N": 4, "O": 6}, "Build Riboflavin (C₁₇H₂₀N₄O₆). Predict the total atom count, then check it with the visual guide."],
+["C₆H₅NO₂", "Niacin", {"C": 6, "H": 5, "N": 1, "O": 2}, "Build Niacin (C₆H₅NO₂). Predict the total atom count, then check it with the visual guide."],
+["C₈H₁₁NO₃", "Pyridoxine", {"C": 8, "H": 11, "N": 1, "O": 3}, "Build Pyridoxine (C₈H₁₁NO₃). Predict the total atom count, then check it with the visual guide."]
 ];
 let challenge=0,advanced=false,classified=false;
 const sub=n=>n===1?'':String(n).replace(/\d/g,d=>'₀₁₂₃₄₅₆₇₈₉'[d]);
@@ -95,28 +245,46 @@ for(const [s,name] of Object.entries(names)){
  get('minus'+s).onclick=()=>{counts[s]--;refreshTray()};get('plus'+s).onclick=()=>{counts[s]++;refreshTray()};
 }
 get('clear').onclick=()=>{Object.keys(counts).forEach(s=>counts[s]=0);refreshTray()};
-function showChallenge(){get('challenge').textContent=compounds[challenge][3];get('clue').textContent='';get('result').textContent=''}
+function drawGuide(){
+ const [formula,name,counts]=compounds[challenge];
+ get('visualName').textContent=name+' · '+formula;
+ const bars=get('bars'); bars.replaceChildren();
+ for(const [symbol,count] of Object.entries(counts)){
+   const row=document.createElement('div');
+   row.className='countRow';
+   const label=document.createElement('b'); label.textContent=names[symbol]+' ('+symbol+') × '+count;
+   const marks=document.createElement('div');marks.className='marks';marks.setAttribute('aria-hidden','true');
+   for(let i=0;i<count;i+=5){
+     const bundle=document.createElement('span');bundle.className='bundle';
+     for(let j=i;j<Math.min(i+5,count);j++)bundle.append(document.createElement('i'));
+     marks.append(bundle);
+   }
+   row.append(label,marks);bars.append(row);
+ }
+ get('sum').textContent='Total atoms in the formula: '+Object.values(counts).join(' + ')+' = '+Object.values(counts).reduce((a,b)=>a+b,0);
+}
+function showChallenge(){drawGuide();get('challenge').textContent=compounds[challenge][3];get('clue').textContent='';get('result').textContent=''}
 get('hint').onclick=()=>{get('clue').textContent='Aim for '+Object.entries(compounds[challenge][2]).map(([s,n])=>n+' '+names[s].toLowerCase()).join(' and ')+'.'};
 function filterCatalog(){
  const query=get('find').value.normalize('NFKC').trim().toLowerCase();
  const catalog=get('catalog');catalog.replaceChildren();
  compounds.forEach(([formula,name],index)=>{
-   if((name+' '+formula).normalize('NFKC').toLowerCase().includes(query)) catalog.add(new Option(name+' · '+formula,index));
+   if(index>=Number(get('collection').value) && (name+' '+formula).normalize('NFKC').toLowerCase().includes(query)) catalog.add(new Option(name+' · '+formula,index));
  });
  const n=catalog.options.length;
  get('found').textContent=n+' of '+compounds.length+' compounds';
  get('load').disabled=!n;catalog.disabled=!n;
- if(n){challenge=Number(catalog.value);showChallenge()}
+ get('guide').hidden=!n;if(n){challenge=Number(catalog.value);showChallenge()}
 }
 get('catalog').onchange=()=>{challenge=Number(get('catalog').value);showChallenge()};
-get('find').oninput=filterCatalog;
+get('find').oninput=filterCatalog;get('collection').onchange=filterCatalog;
 get('load').onclick=()=>{
  const target=compounds[Number(get('catalog').value)];
  for(const symbol of Object.keys(names)) counts[symbol]=target[2][symbol]||0;
  refreshTray();get('result').textContent=target[1]+' · '+target[0]+'. Change an atom count and identify the new combination.';
 };
 get('next').onclick=()=>{
- const next=(challenge+1)%compounds.length;
+ const start=Number(get('collection').value);const next=challenge+1>=compounds.length?start:challenge+1;
  get('find').value='';filterCatalog();get('catalog').value=next;challenge=next;showChallenge();
 };
 filterCatalog();
